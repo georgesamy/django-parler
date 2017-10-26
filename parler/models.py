@@ -296,7 +296,8 @@ class TranslatableModelMixin(object):
         or :func:`~django.db.models.fields.related.RelatedManager.create` on related fields.
         """
         if language_code is None:
-            raise ValueError(get_null_language_error())
+            language_code = "en"
+            # raise ValueError(get_null_language_error())
 
         meta = self._parler_meta
         if self._translations_cache[meta.root_model].get(language_code, None):  # MISSING evaluates to False too
@@ -314,7 +315,8 @@ class TranslatableModelMixin(object):
         :param related_name: If given, only the model matching that related_name is removed.
         """
         if language_code is None:
-            raise ValueError(get_null_language_error())
+            language_code = "en"
+            # raise ValueError(get_null_language_error())
 
         if related_name is None:
             metas = self._parler_meta
@@ -392,7 +394,9 @@ class TranslatableModelMixin(object):
         if language_code is None:
             language_code = self._current_language
             if language_code is None:
-                raise ValueError(get_null_language_error())
+                language_code = "en"
+                self._current_language = "en"
+                # raise ValueError(get_null_language_error())
 
         meta = self._parler_meta._get_extension_by_related_name(related_name)
 
@@ -463,7 +467,8 @@ class TranslatableModelMixin(object):
         if not language_code:
             language_code = self._current_language
             if language_code is None:
-                raise ValueError(get_null_language_error())
+                language_code = "en"
+                # raise ValueError(get_null_language_error())
 
         if meta is None:
             meta = self._parler_meta.root  # work on base model by default
